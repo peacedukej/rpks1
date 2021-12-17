@@ -1,0 +1,181 @@
+﻿<Window x:Class="rpks1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:rpks1.ViewModel"
+        xmlns:converter="clr-namespace:Kiryanov.WPF.MVVM.Converter;assembly=Kiryanov.WPF.MVVM"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:global="clr-namespace:;assembly=Kiryanov.WPF.MVVM"
+        mc:Ignorable="d"
+        Title="Лабораторная работа №1, Кирьянов Павел, М8О-310Б-19" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        
+        <Window.DataContext>
+                <viewModels:MainWindowViewModel />
+        </Window.DataContext>
+        
+        <Grid>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10, 10, 10, 10" 
+                        Content="Push me"
+                        Command="{Binding DummyCommand}"/>
+                
+                <ScrollViewer Grid.Row="0"
+                              Grid.Column="0"
+                              Padding="10, 10, 10, 10"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                                <StackPanel.Resources>
+                                        <Style TargetType="TextBlock">
+                                                <Setter Property="FontSize" Value="20"/>
+                                                <Setter Property="FontFamily" Value="Arial" />
+                                                <Setter Property="Padding" Value="0, 0, 0, 40"></Setter>
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                                        </Style>
+                                </StackPanel.Resources>
+                                <Grid ShowGridLines="False">
+                                        <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Arithmetic converter:" />
+                                        <TextBlock Grid.Column="1" Grid.Row="0">
+                                                <TextBlock.Text>
+                                                        <MultiBinding Converter="{converter:ArithmeticConverter}" 
+                                                                      ConverterParameter="{x:Static converter:ArithmeticConverter+Operators.Addition}"
+                                                                      Mode="OneWay"
+                                                                      StringFormat="N2"
+                                                                      FallbackValue="123"
+                                                                      TargetNullValue="456">
+                                                                <MultiBinding.Bindings>
+                                                                        <Binding>
+                                                                                <Binding.Source>
+                                                                                        <system:Double>1235.0</system:Double>
+                                                                                </Binding.Source>
+                                                                        </Binding>
+                                                                        <Binding>
+                                                                                <Binding.Source>
+                                                                                        <system:Double>1241.0</system:Double>
+                                                                                </Binding.Source>
+                                                                        </Binding>
+                                                                </MultiBinding.Bindings>
+                                                        </MultiBinding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Equality converter:" />
+                                        <TextBlock Grid.Column="1" Grid.Row="1">
+                                                <TextBlock.Text>
+                                                        <MultiBinding Converter="{converter:EqualityConverter}"
+                                                                      ConverterParameter="{x:Static converter:EqualityConverter+Operators.Equal}">
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>123</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>123</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                        </MultiBinding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Order Relationship converter" />
+                                        <TextBlock Grid.Column="1" Grid.Row="2">
+                                                <TextBlock.Text>
+                                                        <MultiBinding Converter="{converter:OrderRelationshipConverter}"
+                                                                      ConverterParameter="{x:Static converter:OrderRelationshipConverter+Operators.Less}">
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>121</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>122</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                        </MultiBinding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Logic converter:" />
+                                        <TextBlock Grid.Column="1" Grid.Row="3">
+                                                <TextBlock.Text>
+                                                        <MultiBinding Converter="{converter:LogicConverter}"
+                                                                      ConverterParameter="{x:Static converter:LogicConverter+Operators.And}">
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Boolean>False</system:Boolean>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Boolean>True</system:Boolean>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                        </MultiBinding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Bitwise converter" />
+                                        <TextBlock Grid.Column="1" Grid.Row="4">
+                                                <TextBlock.Text>
+                                                        <MultiBinding Converter="{converter:BitwiseConverter}"
+                                                                      ConverterParameter="{x:Static converter:BitwiseConverter+Operators.And}">
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>12</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                                <Binding>
+                                                                        <Binding.Source>
+                                                                                <system:Int32>12</system:Int32>
+                                                                        </Binding.Source>
+                                                                </Binding>
+                                                        </MultiBinding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="5" Text="Boll converter:" />
+                                        <TextBlock Grid.Column="1" Grid.Row="5">
+                                                <TextBlock.Text>
+                                                        <Binding Converter="{converter:BoolConverter}">
+                                                                <Binding.Source>
+                                                                                <system:Boolean>True</system:Boolean>
+                                                                </Binding.Source>
+                                                        </Binding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="6" Text="Null converter:" />
+                                        <TextBlock Grid.Column="1" Grid.Row="6">
+                                                <TextBlock.Text>
+                                                        <Binding Converter="{converter:NullConverter}">
+                                                                <Binding.Source>
+                                                                        <system:String>"check str"</system:String>
+                                                                </Binding.Source>
+                                                        </Binding>
+                                                </TextBlock.Text>
+                                        </TextBlock>
+                                </Grid>
+                        </StackPanel>
+                </ScrollViewer>
+        </Grid>
+</Window>

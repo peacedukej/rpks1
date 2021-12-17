@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Rabinowitz\source\repos\rpks1\Kiryanov.WPF.MVVM.Core\Kiryanov.WPF.MVVM.Core.csproj" />
+    <ProjectReference Include="C:\Users\Rabinowitz\source\repos\rpks1\Kiryanov.WPF.MVVM\Kiryanov.WPF.MVVM.csproj" />
+  </ItemGroup>
+
+</Project>
+
